@@ -1,7 +1,7 @@
 import paho.mqtt.client as mqtt
 import socket
 
-DEFAULT_BROKER_HOSTNAME = "naonedmakers"
+DEFAULT_BROKER_HOSTNAME = "gredeb"
 CMD_MOVE_LEFT_ARM_NAME = "im/command/leftarm/move"
 CMD_MOVE_RIGHT_ARM_NAME = "im/command/rightarm/move"
 CMD_MOVE_LEFT_HAND_NAME = "im/command/lefthand/move"
@@ -33,7 +33,7 @@ class CommandRobot(object):
         """
             Method to publish a move event to the broker
         """
-        self.mqtt_client.publish(CMD_UP_RIGHT_ARM_NAME, "{\"origin\":\"kinect\"}")
+        self.mqtt_client.publish(CMD_DOWN_RIGHT_ARM_NAME, "{\"origin\":\"kinect\"}")
         print "move down"
 
 

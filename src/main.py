@@ -27,13 +27,13 @@ def main(argv):
     robot = cr.CommandRobot()
 
     try:
-        opts, args = getopt.getopt(argv,"htd",["hostname="])
+        opts, args = getopt.getopt(argv,"h",["hostname="])
     except getopt.GetoptError:
         print ('main.py -h <hostname>')
         sys.exit(2)
 
     for opt, arg in opts:
-      if opt in ("-h", "--hostanme"):
+      if opt in ("-h", "--hostname"):
          robot.hostname = arg
 
 
@@ -73,9 +73,10 @@ def main(argv):
         if key==27:
             break
 
-        frame = handTracker.read_frame()    
-        tracker_hand.track_hand(frame)
-        depth_display.show_frame(frame.depth_frame)
+        frame = handTracker.read_frame()  
+        img = depth_display.build_img(frame.depth_frame)
+        tracker_hand.track_hand(frame, img)
+        depth_display.show_frame(img)
         
                     
     nite2.unload()

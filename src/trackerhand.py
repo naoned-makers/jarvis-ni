@@ -2,6 +2,7 @@ from openni import openni2, nite2
 from openni import _openni2 as c_api_openni2
 from openni import _nite2 as c_api_nite2
 import commandrobot as cr
+import displaydepth as dp
 
 MIN_MOVE_VALIDATION=50
 
@@ -16,7 +17,7 @@ class TrackerHand(object):
         self.hand_id = None
         self.robot = command_robot
         
-    def track_hand(self, frame):
+    def track_hand(self, frame, img):
 
 
         if frame.gestures:
@@ -50,6 +51,8 @@ class TrackerHand(object):
 
                 
                     new_position = hand.position.y
+
+                    dp.draw_hand_at(hand.position,img)
 
                     if new_position != self.last_position:
 
