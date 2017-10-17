@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+   <meta charset="UTF-8"> 
+
+
+    <script type="text/javascript">
+
+        // var loadImage = function (url, ctx) {
+        //   var img = new Image();
+        //   img.src = url
+        //   img.onload = function () { 
+        //     ctx.drawImage(img, 0,0, 500, 375);
+
+        //     console.log("load")
+    
+        //   }
+        // }
+
+        // function drawImage() {
+        //     var canvas = document.getElementById('canvas');
+        //     if (canvas.getContext) {
+
+        //         var ctx = canvas.getContext('2d');
+        //         ctx.fillStyle = "rgba(200, 0, 0, 0.5)";
+        //         ctx.fillRect(0, 0, 500, 375);
+    
+        //         //Loading of the home test image - img1
+        //         let img = loadImage("/tmp/kinect/kinect.png", ctx);
+
+        //     }
+
+        //     setTimeout(function(){ window.requestAnimationFrame(drawImage); }, 10);
+
+        // }
+
+          var cpt = 0;
+
+          function drawImage(){
+
+              var canvas = document.getElementById('canvas');
+              var context = canvas.getContext('2d');
+
+
+              var img = new Image();
+              var imgLoaded = false;
+              img.src = '/tmp/kinect/kinect'+cpt+'.png'
+
+              img.onload = function(){
+                context.drawImage(img, 0, 0, canvas.width,canvas.height);
+                
+                if(cpt<100)
+                  cpt++
+                else
+                  cpt = 0
+              }
+
+              setTimeout(function(){ drawImage(); }, 100);
+
+          }
+
+       
+        
+
+        
+
+
+    </script>
+
+    <style type="text/css">
+      
+    </style>
+
+</head>
+<body onload="drawImage();">
+
+
+<canvas id="canvas" width="500" height="375"></canvas>
+
+</body>
+</html>
