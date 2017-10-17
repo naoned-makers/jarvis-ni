@@ -16,7 +16,7 @@ class CommandRobot(object):
     """
 
     def __init__(self, hostname = DEFAULT_BROKER_HOSTNAME):
-        print "_init robot"
+        print "_init robot for {}".format(hostname)
         self.hostname = hostname
         self.mqtt_client = mqtt.Client(client_id="kinect_"+socket.gethostname())
         self.mqtt_client.connect(hostname, 1883, 60)

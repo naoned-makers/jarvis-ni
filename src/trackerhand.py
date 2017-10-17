@@ -2,7 +2,6 @@ from openni import openni2, nite2
 from openni import _openni2 as c_api_openni2
 from openni import _nite2 as c_api_nite2
 import commandrobot as cr
-import displaydepth as dp
 
 MIN_MOVE_VALIDATION=50
 
@@ -17,7 +16,7 @@ class TrackerHand(object):
         self.hand_id = None
         self.robot = command_robot
         
-    def track_hand(self, frame, img):
+    def track_hand(self, frame, depth_display):
 
 
         if frame.gestures:
@@ -38,9 +37,11 @@ class TrackerHand(object):
                             if self.following_started:
                                 self.last_position = gesture.currentPosition.y
                                 self.hand_id = self.trackerNi.start_hand_tracking(gesture.currentPosition)
+                                depth_display.draw_hello()
                             else:
                                 #Robot say Goodbye with arm and hand
                                 self.robot.say_goodbye()
+                                depth_display.draw_goodbye()
                                 self.trackerNi.stop_hand_tracking(self.hand_id)
 
         if frame.hands :
@@ -49,10 +50,9 @@ class TrackerHand(object):
 
                 if hand.state == c_api_nite2.NiteHandState.NITE_HAND_STATE_TRACKED:
 
-                
                     new_position = hand.position.y
 
-                    dp.draw_hand_at(hand.position,img)
+                    depth_display.draw_hand_at(hand.position)
 
                     if new_position != self.last_position:
 
@@ -64,14 +64,16 @@ class TrackerHand(object):
 
                             if last_move < 0:
                                 self.robot.move_right_arm_down()
+                                depth_display.draw_down()
                             else:
                                 self.robot.move_right_arm_up()
-
+                                depth_display.draw_up()
                 
-                elif hand.state == 6:
+                elif hand.state == c_api_nite2.NiteHandState.NITE_HAND_STATE_LOST:
                     print "hand lost"
                     self.trackerNi.stop_hand_tracking(self.hand_id)
                     self.following_started = False
+   
 
     def is_new_move(self, new_position):
 

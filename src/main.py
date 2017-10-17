@@ -19,30 +19,31 @@ def main(argv):
         parameters
         -------------------
         argv : should contains parameters to configure the broker
-                -h : the hostname
+                -H : the hostname
     """
     
     #Read the parameters
-    
-    robot = cr.CommandRobot()
-
     try:
-        opts, args = getopt.getopt(argv,"h",["hostname="])
+        opts, args = getopt.getopt(argv,"H:",["hostname="])
     except getopt.GetoptError:
-        print ('main.py -h <hostname>')
+        print ('main.py -H <hostname>')
         sys.exit(2)
 
     for opt, arg in opts:
-      if opt in ("-h", "--hostname"):
-         robot.hostname = arg
 
+      if opt in ("-H", "--hostname"):
+         robot = cr.CommandRobot(arg)
+
+
+    if robot is None:
+         robot = cr.CommandRobot()
 
     # Init OpenNi2 and Nite 2
     openni2.initialize()     # can also accept the path of the OpenNI redistribution
     nite2.initialize()
 
     dev = openni2.Device.open_any()
-    print dev.get_device_info()
+    print "device: {}".format(dev.get_device_info())
 
 
     try:
@@ -66,6 +67,7 @@ def main(argv):
 
     cv2.namedWindow('Jarvis-View')
 
+
     while True:
 
         key = cv2.waitKey(10)
@@ -74,11 +76,11 @@ def main(argv):
             break
 
         frame = handTracker.read_frame()  
-        img = depth_display.build_img(frame.depth_frame)
-        tracker_hand.track_hand(frame, img)
-        depth_display.show_frame(img)
-        
-                    
+        #print "Resolution x:{}, y:{}".format(frame.depth_frame.width,frame.depth_frame.height)
+        depth_display.build_img(frame.depth_frame)
+        tracker_hand.track_hand(frame, depth_display)
+        depth_display.show_frame()
+           
     nite2.unload()
     openni2.unload()
 
