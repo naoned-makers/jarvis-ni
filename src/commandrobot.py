@@ -1,7 +1,7 @@
 import paho.mqtt.client as mqtt
 import socket
 
-DEFAULT_BROKER_HOSTNAME = "gredeb"
+DEFAULT_BROKER_HOSTNAME = "naonedmakers"
 CMD_MOVE_LEFT_ARM_NAME = "im/command/leftarm/move"
 CMD_MOVE_RIGHT_ARM_NAME = "im/command/rightarm/move"
 CMD_MOVE_LEFT_HAND_NAME = "im/command/lefthand/move"

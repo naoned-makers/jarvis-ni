@@ -24,7 +24,6 @@ def applyCustomColorMap(im_gray):
     return im_color
 
 def draw_hand_at(position, img):
-    print position
     cv2.circle(img,(int(position.x),int(position.y)), 5, (0,0,255), -1)
 
 
@@ -32,7 +31,7 @@ class DisplayDepth(object):
     
     def build_img(self, frame):
         
-        dmap = np.fromstring(frame.get_buffer_as_uint16(),dtype=np.uint16)  # Works & It's FAST
+        dmap = np.fromstring(frame.get_buffer_as_uint16(),dtype=np.uint16).reshape(480,640)  # Works & It's FAST
         im_gray = np.uint8(dmap.astype(float) *255/ 2**12-1) # Correct the range. Depth images are 12bits
         im_gray = cv2.cvtColor(im_gray,cv2.COLOR_GRAY2RGB)
         im_color = applyCustomColorMap(im_gray)
