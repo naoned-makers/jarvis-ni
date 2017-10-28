@@ -21,7 +21,8 @@ def main(argv):
         argv : should contains parameters to configure the broker
                 -H : the hostname
     """
-    
+    robot = None
+
     #Read the parameters
     try:
         opts, args = getopt.getopt(argv,"H:",["hostname="])

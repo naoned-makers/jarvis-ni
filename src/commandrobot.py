@@ -10,7 +10,14 @@ CMD_MOVE_RIGHT_HAND_NAME = "im/command/righthand/move"
 CMD_UP_RIGHT_ARM_NAME = "im/command/rightarm/up"
 CMD_DOWN_RIGHT_ARM_NAME = "im/command/rightarm/down"
 
+
+def on_disconnect(client, userdata, rc):
+	client.connect(hostname, 1883,60)
+	client.loop_start()
+	
+
 class CommandRobot(object):
+
     """
         Launch command to the broker
     """
@@ -19,8 +26,10 @@ class CommandRobot(object):
         print "_init robot for {}".format(hostname)
         self.hostname = hostname
         self.mqtt_client = mqtt.Client(client_id="kinect_"+socket.gethostname())
-        self.mqtt_client.connect(hostname, 1883, 60)
-
+	self.mqtt_client.connect(hostname, 1883,60)
+	self.mqtt_client.on_disconnect = on_disconnect
+	self.mqtt_client.loop_start()
+		
     def move_right_arm_up(self):
         """
             Method to publish a move event to the broker

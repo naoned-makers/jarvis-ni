@@ -12,4 +12,4 @@ docker run --dns 192.168.43.1 -d --privileged -v /dev/bus/usb:/dev/bus/usb \
 		-v /tmp/kinect:/tmp/kinect \
 		rguillom/jarvis-ni python src/main.py -H naonedmakers
 
-sudo LD_LIBRARY_PATH=/usr/local/lib/ /usr/local/bin/mjpg_streamer -i "input_file.so -f /tmp/kinect -n kinect_jarvis.jpg -d 0,1" -o "output_http.so -w /usr/local/www -p 8090" &
+sudo LD_LIBRARY_PATH=/usr/local/lib/ /usr/local/bin/mjpg_streamer -i "input_file.so -f /tmp/kinect -n kinect_jarvis.jpg -d 0,1" -o "output_http.so -w /usr/local/www -p 6660" &
