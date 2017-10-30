@@ -31,7 +31,7 @@ class DisplayDepth(object):
         self.text_start_time = None
         self.text = None
         self.img = None
-        self.color = (28,28,183)
+        self.color = (254,255,2)
     
     def build_img(self, frame):
         
