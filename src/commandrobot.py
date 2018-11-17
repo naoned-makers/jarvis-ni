@@ -10,9 +10,10 @@ CMD_MOVE_RIGHT_HAND_NAME = "im/command/righthand/move"
 CMD_UP_RIGHT_ARM_NAME = "im/command/rightarm/up"
 CMD_DOWN_RIGHT_ARM_NAME = "im/command/rightarm/down"
 
+global_hostname="localhost"
 
 def on_disconnect(client, userdata, rc):
-	client.connect(hostname, 1883,60)
+	client.connect(global_hostname, 1883,60)
 	client.loop_start()
 	
 
@@ -25,6 +26,7 @@ class CommandRobot(object):
     def __init__(self, hostname = DEFAULT_BROKER_HOSTNAME):
         print "_init robot for {}".format(hostname)
         self.hostname = hostname
+	global_hostname = hostname
         self.mqtt_client = mqtt.Client(client_id="kinect_"+socket.gethostname())
 	self.mqtt_client.connect(hostname, 1883,60)
 	self.mqtt_client.on_disconnect = on_disconnect
