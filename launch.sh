@@ -6,7 +6,7 @@ export XAUTH=/tmp/.docker.xauth
 
 xhost +
 
-docker run --dns 192.168.0.1 -d --privileged -v /dev/bus/usb:/dev/bus/usb \
+docker run --restart on-failure --dns 192.168.0.1 -d --privileged -v /dev/bus/usb:/dev/bus/usb \
 		-v $(pwd):/opt/kinect \
 		-v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH \
 		-v /tmp/kinect:/tmp/kinect \
