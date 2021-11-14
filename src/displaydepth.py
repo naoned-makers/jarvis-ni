@@ -31,7 +31,7 @@ class DisplayDepth(object):
         self.text_start_time = None
         self.text = None
         self.img = None
-        self.color = (254,255,2)
+        self.color = (2,2,254)
     
     def build_img(self, frame):
         
@@ -70,7 +70,7 @@ class DisplayDepth(object):
 
         if  self.text is not None and self.text_start_time is not None:
             if (current_time - self.text_start_time) < TIME_TO_DISPLAY_TEXT:
-                cv2.putText(self.img, self.text, (self.width*10/100, self.height*10/100), cv2.FONT_HERSHEY_PLAIN, 3, self.color)
+                cv2.putText(self.img, self.text, (self.width*10/100, self.height*15/100), cv2.FONT_HERSHEY_PLAIN, 5, self.color, 8)
             else:
                 self.text = None
                 self.text_start_time = None
